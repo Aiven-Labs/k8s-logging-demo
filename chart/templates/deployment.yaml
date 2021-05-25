@@ -1,0 +1,25 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "api"
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: "api"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "api"
+  template:
+    metadata:
+      labels:
+        app: "api"
+    spec:
+      containers:
+      - name: "api"
+        image: local/log-demo
+        imagePullPolicy: Never
+#      containers:
+#      - name: "log-demo-sha256-1"
+#        image: "gcr.io/aiven-demo/log-demo@sha256:35e37ef8fcc303f13b29cecc708013483d052c65abfd3ffc97fac66fae2e8cb2"
+

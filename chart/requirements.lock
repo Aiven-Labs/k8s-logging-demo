@@ -1,0 +1,6 @@
+dependencies:
+- name: fluentd
+  repository: https://charts.bitnami.com/bitnami
+  version: 3.7.3
+digest: sha256:df0e0e144794e605094b250063fe6d4f12d8be31b316b1a2f194cfc9f8e2b64f
+generated: "2021-05-24T11:38:26.117203-04:00"

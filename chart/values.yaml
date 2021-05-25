@@ -1,0 +1,11 @@
+global:
+  namespace: logging
+elasticsearch:
+  hosts: "https://elasticsearch-uri:24947"
+  port: 24947
+  user: "avnadmin"
+  pw: "password"
+fluentd:
+  ## Add fluentd config files from K8s configMaps
+  forwarder:
+    configMap: fluentd-config
