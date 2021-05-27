@@ -26,9 +26,19 @@ data:
       tag kubernetes.*
       read_from_head true
       <parse>
-        @type json
+        @type multi_format
+        <pattern>
+          format json
+          time_key time
+          time_format %Y-%m-%dT%H:%M:%S.%NZ
+        </pattern>
+        <pattern>
+          format /^(?<time>.+) (?<stream>stdout|stderr) [^ ]* (?<log>.*)$/
+          time_format %Y-%m-%dT%H:%M:%S.%N%:z
+        </pattern>
       </parse>
     </source>
+
     # enrich with kubernetes metadata
     <filter kubernetes.**>
       @type kubernetes_metadata
@@ -46,6 +56,9 @@ data:
       hosts {{ .Values.elasticsearch.hosts }}
       user {{ .Values.elasticsearch.user }}
       password {{ .Values.elasticsearch.pw }}
+      include_timestamp true
+      logstash_prefix minikube
+      logstash_dateformat %Y.%m.%d
       logstash_format true
 
       <buffer>
@@ -55,26 +68,3 @@ data:
         flush_interval 5s
       </buffer>
     </match>
-
-#    # Prometheus Exporter Plugin
-#    # input plugin that exports metrics
-#    <source>
-#      @type prometheus
-#      port 24231
-#    </source>
-#
-#    # input plugin that collects metrics from MonitorAgent
-#    <source>
-#      @type prometheus_monitor
-#      <labels>
-#        host ${hostname}
-#      </labels>
-#    </source>
-#
-#    # input plugin that collects metrics for output plugin
-#    <source>
-#      @type prometheus_output_monitor
-#      <labels>
-#        host ${hostname}
-#      </labels>
-#    </source>
