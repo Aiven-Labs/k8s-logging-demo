@@ -49,6 +49,7 @@ data:
       @type stdout
     </match>
 
+    {{- if .Values.elasticsearch.enabled }}
     # Send the logs to the elasticsearch
     <match **>
       @type elasticsearch
@@ -68,3 +69,24 @@ data:
         flush_interval 5s
       </buffer>
     </match>
+    {{- end }}
+
+    {{- if .Values.kafka.enabled }}
+    # Send the logs to Kafka
+    <match **>
+      @type kafka2
+      brokers {{ .Values.kafka.brokers }}
+      default_topic logs
+      use_default_for_unknown_topic true
+      username {{ .Values.kafka.user }}
+      password {{ .Values.kafka.pw }}
+      ssl_ca_certs_from_system false
+      sasl_over_ssl true
+      ssl_ca_cert "/opt/bitnami/fluentd/certs/ca.cert"
+
+      <format>
+        @type json
+      </format>
+
+    </match>
+    {{- end }}

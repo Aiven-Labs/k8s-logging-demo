@@ -58,3 +58,23 @@ curl -X POST localhost:8080/echo -d'{"key": "HELLO THERE"}'
 
 You should be able to see a logged warning message from the
 api that has the payload in it.
+
+You can enable Kafka output as well. Add the following to the 
+helm command
+```
+kafka_broker=<host>:<port>
+kafka_user=user
+kafka_pw=password
+kafka_ca_cert='
+<Certificate Contents>
+'
+
+--set kafka.brokers=$kafka_broker \
+--set kafka.user=$kafka_user \
+--set kafka.pw=$kafka_pw \
+--set kafka.caCert=$kafka_ca_cert \
+--set kafka.enabled=true
+```
+
+To turn either of kafka or elasticsearch output off
+jsut set their enabled flag to `false`

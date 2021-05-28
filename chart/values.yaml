@@ -1,6 +1,13 @@
 global:
   namespace: logging
+kafka:
+  enabled: false
+  brokers: "host:24960"
+  user: "avnadmin"
+  pw: "password"
+  caCert: ""
 elasticsearch:
+  enabled: true
   hosts: "https://elasticsearch-uri:24947"
   port: 24947
   user: "avnadmin"
@@ -9,3 +16,11 @@ fluentd:
   ## Add fluentd config files from K8s configMaps
   forwarder:
     configMap: fluentd-config
+    extraVolumes:
+      - name: ca-cert-file
+        secret:
+          secretName: ca-cert
+    extraVolumeMounts:
+      - name: ca-cert-file
+        mountPath: "/opt/bitnami/fluentd/certs"
+        readOnly: true
