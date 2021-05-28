@@ -15,12 +15,12 @@ FluentD Helm Chart Reference
 
 Create an Aiven Elasticsearch service. Take note of the 
 host, port, username and password. These will be added to 
-`logging_demo/chart/values.yaml` or they can be specified via
+`k8s-logging-demo/chart/values.yaml` or they can be specified via
 CLI.
 
 Build the api locally
 ```bash
-cd logging_demo
+cd k8s-logging-demo
 docker build -t local/log-demo .
 ```
 
