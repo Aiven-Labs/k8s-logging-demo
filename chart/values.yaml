@@ -1,5 +1,7 @@
 global:
   namespace: logging
+api:
+  enabled: false
 kafka:
   enabled: false
   brokers: "host:24960"
