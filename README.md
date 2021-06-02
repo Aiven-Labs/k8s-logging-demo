@@ -22,14 +22,20 @@ host, port, username and password. These will be added to
 CLI.
 
 
-## API
+## API (Optional)
 Build the api locally
 ```bash
 cd k8s-logging-demo
 docker build -t local/log-demo .
 ```
+Set the value of `api.enabled` to `true` in `chart/values.yaml`
 
 ## Build and Deploy
+Create `logging` namespace
+```bash
+kubectl create ns logging
+```
+
 Add and Update Helm Dependencies
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -47,6 +53,15 @@ Install the Helm Chart
 helm install -n logging log-demo chart \
 --set elasticsearch.hosts=<ES Host> \
 --set elasticsearch.pw=<ES Password>
+```
+
+## Random Logging (Optional)
+```bash
+kubectl create deployment -n logging --image=chentex/random-logger:latest logger
+```
+To remove:
+```bash
+kubectl delete -n logging deployment/logger
 ```
 
 ## Viewing Logs
@@ -86,4 +101,6 @@ kafka_ca_cert='
 ```
 
 To turn either of kafka or elasticsearch output off
-jsut set their enabled flag to `false`
+just set their enabled flag to `false`
+
+
