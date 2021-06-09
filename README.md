@@ -1,3 +1,20 @@
+# Kubernetes Logging Demo
+
+An example of deploying a local Kubernetes cluster using Minikube,
+capturing the cluster's logs, and sending them to an external
+system. 
+
+The code gives you the ability to create logs either using a 
+random logging pod or by means of an API that can be built
+using this repo as well.
+
+You will have the options of sending the logs to either Elasticsearch
+or Kafka or both. For both of these services, I recommend using
+[Aiven's platform](https://console.aiven.io/signup?utm_source=github&utm_medium=organic&utm_campaign=k8s-logging&utm_content=signup)
+as it easy to get started with and security is
+a first class citizen. You can signup for a free trial
+which should give you plenty of credits to get started.
+
 ## Dependencies
 
 ### Install Docker
@@ -16,11 +33,16 @@
  * https://github.com/bitnami/charts/tree/master/bitnami/fluentd/#installing-the-chart
 
 ## Elasticsearch
-Create an Aiven Elasticsearch service. Take note of the 
-host, port, username and password. These will be added to 
-`k8s-logging-demo/chart/values.yaml` or they can be specified via
-CLI.
+Create an [Aiven Elasticsearch](https://aiven.io/elasticsearch) 
+service. Take note of the host, port, username and password. 
+These will be added to `k8s-logging-demo/chart/values.yaml` 
+or they can be specified via CLI.
 
+## Kafka (Optional)
+Create an [Aiven Kafka](https://aiven.io/kafka)
+service. Take note of the host, port, and SASL connection
+details. There will be added to `k8s-logging-demo/chart/values.yaml` 
+or they can be specified via CLI.
 
 ## API (Optional)
 Build the api locally
